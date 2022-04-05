@@ -16,7 +16,7 @@ func main() {
 	// OnAction must be registered before any storage manipulation.
 	dispatcher.Register(store.OnAction)
 
-	attachItemsStorage()
+	// attachItemsStorage()
 
 	body := &views.Body{
 		Ctx: store.Ctx,
