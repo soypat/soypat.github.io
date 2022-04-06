@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"flag"
 	"fmt"
 	"io"
@@ -9,7 +10,12 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	"github.com/soypat/rebed"
 )
+
+//go:embed assets
+var assets embed.FS
 
 //go:generate go run .
 
@@ -22,6 +28,7 @@ func main() {
 	genWasm(compiler)
 	genJSBootloader(compiler)
 	genIndexHTML(compiler)
+	genAppAssets()
 	log.Println("generation finished. enjoy your day!")
 }
 
@@ -80,6 +87,14 @@ func genWasm(compiler string) {
 		log.Fatal(err)
 	}
 	log.Printf("generate WASM finished (main.wasm %s)\n", formatSize(info.Size()))
+}
+
+// generates assets in app folder for local testing.
+func genAppAssets() {
+	err := rebed.Write(assets, "app")
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func genIndexHTML(compiler string) {

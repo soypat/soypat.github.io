@@ -1,27 +1,26 @@
 package store
 
 import (
+	"soypat.github.io/app/models"
 	"soypat.github.io/app/store/actions"
 	"soypat.github.io/app/store/storeutil"
 )
 
 var (
 	Ctx   actions.Context
-	Items []string
+	Pages []models.Page
 
 	Listeners = storeutil.NewListenerRegistry()
 )
 
 func OnAction(action interface{}) {
 	switch a := action.(type) {
-	case *actions.NewItem:
-		Items = append(Items, a.Item)
-
 	case *actions.PageSelect:
 		oldCtx := Ctx
 		Ctx = actions.Context{
-			Page:     a.Page,
+			Page:     a.View,
 			Referrer: &oldCtx,
+			Action:   a,
 		}
 
 	case *actions.Back:

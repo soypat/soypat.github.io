@@ -2,20 +2,27 @@ package main
 
 import (
 	"encoding/json"
+	"strings"
 	"syscall/js"
 
-	"soypat.github.io/app/store"
-	"soypat.github.io/app/store/actions"
-	"soypat.github.io/app/store/dispatcher"
-	"soypat.github.io/app/views"
+	_ "embed"
 
 	"github.com/hexops/vecty"
+	"soypat.github.io/app/store"
+	"soypat.github.io/app/store/dispatcher"
+	"soypat.github.io/app/views"
 )
+
+//go:embed assets/data/whittileaks.json
+var whittileaks string
 
 func main() {
 	// OnAction must be registered before any storage manipulation.
 	dispatcher.Register(store.OnAction)
-
+	err := json.NewDecoder(strings.NewReader(whittileaks)).Decode(&store.Pages)
+	if err != nil {
+		panic(err)
+	}
 	// attachItemsStorage()
 
 	body := &views.Body{
@@ -33,12 +40,12 @@ func main() {
 func attachItemsStorage() {
 	const key = "vecty_items"
 	store.Listeners.Add(nil, func(action interface{}) {
-		if _, ok := action.(*actions.NewItem); !ok {
-			// Only save state upon adding an item
-			return
-		}
+		// if _, ok := action.(*actions.NewItem); !ok {
+		// 	// Only save state upon adding an item
+		// 	return
+		// }
 		// After item addition save state.
-		b, err := json.Marshal(&store.Items)
+		b, err := json.Marshal(&store.Pages)
 		if err != nil {
 			panic(err)
 		}
@@ -47,7 +54,7 @@ func attachItemsStorage() {
 
 	if data := js.Global().Get("localStorage").Get(key); !data.IsUndefined() {
 		// Old session data found, initialize store data.
-		err := json.Unmarshal([]byte(data.String()), &store.Items)
+		err := json.Unmarshal([]byte(data.String()), &store.Pages)
 		if err != nil {
 			panic(err)
 		}

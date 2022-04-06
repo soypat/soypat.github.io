@@ -18,18 +18,19 @@ type Body struct {
 func (b *Body) Render() vecty.ComponentOrHTML {
 	var mainContent vecty.MarkupOrChild
 	switch b.Ctx.Page {
-	case actions.PageLanding:
+	case actions.ViewLanding:
 		mainContent = elem.Div(
-			elem.Div(elem.Button(
-				vecty.Markup(event.Click(b.newItem)),
-				vecty.Text("New item"),
-			)),
 			&Landing{
-				Items: store.Items,
+				Pages: store.Pages,
 			},
 		)
-	case actions.PageNewItem:
-		mainContent = &NewItem{}
+
+	case actions.ViewPage:
+		act := b.Ctx.Action.(*actions.PageSelect)
+		mainContent = &page{
+			Page: store.Pages[act.PageIdx],
+		}
+
 	default:
 		panic("unknown Page")
 	}
@@ -45,8 +46,4 @@ func (b *Body) Render() vecty.ComponentOrHTML {
 
 func (b *Body) backButton(*vecty.Event) {
 	dispatcher.Dispatch(&actions.Back{})
-}
-
-func (b *Body) newItem(*vecty.Event) {
-	dispatcher.Dispatch(&actions.PageSelect{Page: actions.PageNewItem})
 }

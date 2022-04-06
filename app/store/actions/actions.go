@@ -5,30 +5,26 @@ package actions
 // It is not an "action" item strictly speaking.
 type Context struct {
 	// Defines the current page.
-	Page Page
+	Page View
 	// Referrer contains information on last page visited.
 	Referrer *Context
 	// Action can contain the executed action struct along with all
 	// data contained. Can be very useful though author is on the
 	// fence on whether it is good practice.
-	// Action interface{} // Uncomment for use.
+	Action interface{} // Uncomment for use.
 }
 
-type Page int
+type View int
 
 const (
-	PageLanding Page = iota
-	PageNewItem
+	ViewLanding View = iota
+	ViewPage
 )
 
 // PageSelect Navigates view to new page.
 type PageSelect struct {
-	Page Page
-}
-
-// NewItem action.
-type NewItem struct {
-	Item string
+	View    View
+	PageIdx int
 }
 
 // Back button pressed. Navigate to previous page.
