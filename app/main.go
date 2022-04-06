@@ -17,6 +17,7 @@ import (
 var whittileaks string
 
 func main() {
+	vecty.AddStylesheet("assets/css/dark-theme.css")
 	// OnAction must be registered before any storage manipulation.
 	dispatcher.Register(store.OnAction)
 	err := json.NewDecoder(strings.NewReader(whittileaks)).Decode(&store.Pages)
