@@ -40,10 +40,27 @@ func (b *Body) Render() vecty.ComponentOrHTML {
 				vecty.Markup(event.Click(b.backButton)),
 				vecty.Text("Back"),
 			))),
+		elem.Div(
+			whittileaksLogo(35),
+			vecty.Markup(
+				vecty.Style("font-size", "35px"),
+			),
+			vecty.Text("WhittiLeaks"),
+		),
 		mainContent,
 	)
 }
 
 func (b *Body) backButton(*vecty.Event) {
 	dispatcher.Dispatch(&actions.Back{})
+}
+
+func whittileaksLogo(px int) *vecty.HTML {
+	return elem.Image(
+		vecty.Markup(
+			vecty.Attribute("width", px),
+			vecty.Attribute("height", px),
+			vecty.Attribute("src", "assets/img/whittileaks.png"),
+		),
+	)
 }

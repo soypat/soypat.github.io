@@ -22,9 +22,13 @@ func (c *file) Render() vecty.ComponentOrHTML {
 			linkTitle = "Ver"
 		case 1:
 			linkTitle = "Descargar"
-			l = dlBaseURL + l
+			// Temporary files.
 		default:
 			linkTitle = "Link"
+		}
+		if len(c.File.Links) == 2 {
+			// Temporary workaround for google site files
+			l = "https://drive.google.com/drive/folders/11qxYf4nRtOPVDK0Ymi-2kuqTlKEbSkP6?usp=sharing"
 		}
 		links = append(links, elem.Span(
 			elem.Anchor(
