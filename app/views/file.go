@@ -37,13 +37,18 @@ func (c *file) Render() vecty.ComponentOrHTML {
 		),
 		)
 	}
+	date := c.File.DateAdded()
 	return elem.Div(
 		vecty.Markup(
 			vecty.Style("margin", "1em"),
 		),
 		elem.Span(elem.Strong(vecty.Text(c.File.Title()+"\t"))),
+		elem.Strong(vecty.Text("\t-\t")),
 		elem.Span(vecty.Text(c.File.Description())),
 		elem.Span(links),
-		elem.Span(vecty.Text("\t\t")),
+		vecty.If(!date.IsZero(),
+			elem.Strong(vecty.Text("\t-\t")),
+			elem.Span(vecty.Text("Added "+date.Format("02 Jan 2006, 15:04"))),
+		),
 	)
 }

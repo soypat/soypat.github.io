@@ -30,5 +30,15 @@ func (l *Landing) Render() vecty.ComponentOrHTML {
 			),
 		))
 	}
-	return elem.UnorderedList(items)
+	return elem.Div(
+		elem.Heading1(vecty.Text("Whittileaks 4.0")),
+		elem.Heading3(vecty.Text("La universidad 4.0 llega a whittileaks con todos sus beneficios.")),
+		elem.Paragraph(vecty.Text("Dirigir quejas "),
+			elem.Anchor(
+				vecty.Markup(vecty.Attribute("href", "#salu3")),
+				vecty.Text("aquí."),
+			)),
+		elem.UnorderedList(items),
+		elem.Paragraph(vecty.Text("Frontendistas interesados en mejorar -esto- un cacho -> Reach me at pwhittingslow{-at-}itba{dot}edu{dot}ar. Warning: no javascript allowed"), elem.Strong(vecty.Text(", there can be only wasm."))),
+	)
 }

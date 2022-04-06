@@ -2,6 +2,7 @@ package models
 
 import (
 	"strings"
+	"time"
 	"unicode/utf8"
 )
 
@@ -49,4 +50,18 @@ func (f File) Title() string {
 
 func (f File) Description() string {
 	return f.Data[3]
+}
+
+func (f File) DateAdded() time.Time {
+	const (
+		dateLen    = 20
+		gglSiteFmt = "02 Jan 2006, 15:04"
+	)
+	date := strings.TrimSuffix(f.Data[6], "\n")
+	if len(date) > dateLen {
+		date = date[len(date)-dateLen:]
+	}
+	date = strings.TrimSpace(date)
+	t, _ := time.Parse(gglSiteFmt, date)
+	return t
 }
