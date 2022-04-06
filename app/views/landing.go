@@ -1,6 +1,8 @@
 package views
 
 import (
+	"strings"
+
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/elem"
 	"github.com/hexops/vecty/event"
@@ -22,7 +24,7 @@ func (l *Landing) Render() vecty.ComponentOrHTML {
 		items = append(items, elem.ListItem(
 			elem.Anchor(
 				vecty.Markup(
-					vecty.Attribute("href", "#"),
+					vecty.Attribute("href", "#"+strings.ReplaceAll(item.Title, "-", "")),
 					event.Click(func(e *vecty.Event) {
 						dispatcher.Dispatch(&actions.PageSelect{View: actions.ViewPage, PageIdx: i})
 					})),
