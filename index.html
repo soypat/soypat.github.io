@@ -16,10 +16,5 @@
     go.argv = [];
     go.run(result.instance);
   }
-  const reload = await fetch('_wait');
-  // The server sends a response for '_wait' when a request is sent to '_notify'.
-  if (reload.ok) {
-    // location.reload();
-  }
 })();
 </script>
