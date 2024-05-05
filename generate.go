@@ -17,6 +17,7 @@ import (
 //go:embed assets
 var assets embed.FS
 
+//go:generate cp -r assets app/assets
 //go:generate go run .
 
 func main() {

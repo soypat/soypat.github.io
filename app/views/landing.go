@@ -33,13 +33,14 @@ func (l *Landing) Render() vecty.ComponentOrHTML {
 		))
 	}
 	return elem.Div(
-		elem.Heading1(vecty.Text("Whittileaks 4.0")),
-		elem.Heading3(vecty.Text("La universidad 4.0 llega a whittileaks con todos sus beneficios.")),
-		elem.Paragraph(vecty.Text("Dirigir quejas "),
+		elem.Heading1(vecty.Text("Whittileaks 3.9")),
+		elem.Paragraph(
+			vecty.Text("⚠️⚠️El sitio está pasando por una fase de reestructuración."),
 			elem.Anchor(
-				vecty.Markup(vecty.Attribute("href", "#salu3")),
-				vecty.Text("aquí."),
-			)),
+				vecty.Markup(vecty.Attribute("href", "https://drive.google.com/drive/folders/0BxlGAHNyMIneZVIwTVlmYU45ck0?resourcekey=0-BEt5b_on6_crCYH4E-7DZg&usp=drive_link")),
+				vecty.Text("Puede encontrar links a los drives aquí con el contenido de whittileaks."),
+			),
+		),
 		elem.UnorderedList(items),
 		elem.Paragraph(vecty.Text("Frontendistas interesados en mejorar -esto- un cacho -> Reach me at pwhittingslow{-at-}itba{dot}edu{dot}ar. Warning: no javascript allowed"), elem.Strong(vecty.Text(", there can be only wasm."))),
 	)
